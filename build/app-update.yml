@@ -1,0 +1,6 @@
+# Packaged next to the app as resources/app-update.yml (electron-packager build + NSIS extraResources).
+# electron-updater uses this for GitHub Releases (owner/repo below). Ship each release with latest.yml + EXE
+# matching checksums — same workflow as RootRecord/rootrecord-business-manager-download.
+provider: github
+owner: RootRecord
+repo: rootrecord-weather-manager-download

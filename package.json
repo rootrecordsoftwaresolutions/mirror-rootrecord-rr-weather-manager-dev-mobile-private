@@ -1,0 +1,107 @@
+{
+  "name": "root-record-weather-manager",
+  "version": "1.0.17",
+  "description": "Location-scoped weather and hazard monitor (earthquakes, alerts, forecasts)",
+  "main": "src/main.js",
+  "scripts": {
+    "prepare:icon": "node scripts/prepare-weather-assets.cjs",
+    "prestart": "npm run prepare:icon && node scripts/sync-notification-sounds.cjs",
+    "predev": "npm run prepare:icon && node scripts/sync-notification-sounds.cjs",
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "node scripts/build-windows.cjs",
+    "build:electron": "node scripts/build-windows.cjs",
+    "build:installer": "npm run prepare:assets && node scripts/electron-builder-win-installer.cjs",
+    "build:installer:signed": "npm run build:installer && node scripts/sign-weather-installer.cjs",
+    "latest-yml": "node scripts/write-latest-yml.cjs",
+    "prepare:assets": "node scripts/prepare-weather-assets.cjs && node scripts/sync-notification-sounds.cjs && node scripts/prepare-nsis-sidebar.cjs && node scripts/prepare-nsis-installer-icon.cjs"
+  },
+  "keywords": [
+    "electron",
+    "weather",
+    "hazards",
+    "usgs"
+  ],
+  "author": "Root Record Developer",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2",
+    "sharp": "^0.33.5"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "electron-updater": "^6.8.3",
+    "sqlite3": "^6.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RootRecord/rootrecord-weather-manager-download.git"
+  },
+  "build": {
+    "appId": "com.rootrecord.weather-manager",
+    "productName": "Root Record Weather Manager",
+    "copyright": "Copyright © Root Record",
+    "npmRebuild": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "assets/favicon.ico",
+      "!dist/**",
+      "!scripts/**",
+      "!release/**",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,suo,xproj}",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/.bin"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "**/*.node",
+      "assets/favicon.ico"
+    ],
+    "extraResources": [
+      {
+        "from": "build/app-update.yml",
+        "to": "app-update.yml"
+      },
+      {
+        "from": "assets/favicon.ico",
+        "to": "app-icon.ico"
+      },
+      {
+        "from": "assets/notification-sounds",
+        "to": "notification-sounds"
+      }
+    ],
+    "win": {
+      "executableName": "RootRecordWeatherManager",
+      "icon": "assets/favicon.ico",
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "include": "build/installer.nsh",
+      "installerSidebar": "build/installerSidebar.bmp",
+      "uninstallerSidebar": "build/installerSidebar.bmp",
+      "installerIcon": "build/installerIcon.ico",
+      "uninstallerIcon": "build/installerIcon.ico"
+    }
+  }
+}

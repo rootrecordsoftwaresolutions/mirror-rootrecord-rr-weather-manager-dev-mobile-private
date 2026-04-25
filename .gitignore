@@ -1,0 +1,57 @@
+# === Primary app: source, lockfile, build inputs. Regenerate the rest. ===
+# `npm ci` (package-lock.json) — do not commit node_modules/.
+node_modules/
+
+# Unpacked Electron + NSIS / electron-builder output (hundreds of MB, duplicated Chromium).
+dist/
+release/
+
+# Copied from assets/notification-sounds-source/ by `sync-notification-sounds` (prestart / prepare:assets)
+assets/notification-sounds/
+
+# Public GitHub org mirror (download page) — not the app
+rr-weather-dl-only-public/
+
+# Internal handoff / release runbooks (app runs without these)
+docs/
+
+# Store / marketing / scratch art (not bundled in the app)
+assets/photo_*.png
+assets/photo_*.jpg
+assets/photo_*.PNG
+assets/long-poster-*.png
+assets/long.jpg
+assets/github-icon.jpg
+COMMERCIAL_API_PRICE_CHART.txt
+FREEMIUM_PRO_OPTIONS.txt
+
+# Optional Inno/ISCC SignTool hook only (NSIS uses sign_release_azure)
+build/sign_inno_azure.ps1
+
+# Cloud / service secrets (never)
+.env
+.env.*
+!.env.example
+*adminsdk*.json
+*-service-account*.json
+
+# Azure signing — local only (sample.json stays in build/)
+build/artifact_signing_metadata.json
+build/azure_tenant_id.txt
+build/output/
+
+# Local run logs
+*.log
+*.err
+
+# Repo root — scratch images, not product
+/image.jpg
+/image (1).jpg
+/image (2).jpg
+/image (3).jpg
+/image (4).jpg
+/i1GHr.jpg
+*.lnk
+
+# Nested public copy must not re-embed a second .git
+rr-weather-dl-only-public/.git/
