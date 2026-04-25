@@ -1,0 +1,119 @@
+Root Record — Freemium & Pro options (planning draft)
+=====================================================
+Last updated: 2026-04-23
+
+This note is for product and pricing decisions across Root Record desktop apps
+(Root Record Business Manager, Weather Manager, and related tools). It is not a legal
+promise of features until shipped and announced.
+
+
+1. Guiding principles
+---------------------
+- Free tier should stay genuinely useful: local tracking, honest data sources,
+  and no bait-and-switch on safety-relevant alerts where licensing allows.
+- Pro should bundle clear value: convenience, resilience, depth, or
+  multi-context (home + business + cabin) without paywalling basic public
+  hazard awareness.
+- Prefer server costs we can predict (storage, bounded API use) for Pro-only
+  cloud features.
+
+
+2. Root Record Business Manager — already in product copy (reference)
+------------------------------------------------------------
+From the shipped UI narrative, Pro is associated with:
+- Reports workspace (charts, date-range review, dashboard summary PDF).
+- Multiple businesses and optional combined rollups across businesses.
+- Roadmap items mentioned to customers: AI-assisted reports (bounded monthly
+  use when available), optional cloud backup for records, richer reporting.
+
+Free is described as keeping core tools local with full access to tracking,
+money, and scheduling.
+
+
+3. Weather Manager — sensible Free vs Pro split
+-----------------------------------------------
+
+FREE (baseline)
+- Core ingestion for configured locations: NOAA (US) alerts, Environment
+  Canada alerts where included, USGS earthquakes, tsunami bulletins, space
+  weather, cyclone/wildfire feeds from public sources, NOAA forecast periods.
+- Local SQLite history, local archives, critical popups and alert sounds
+  (user-supplied assets), settings, and manual “Backup database now” to local
+  .sqlite3 files under the user’s machine.
+- Auto-backup on a schedule to the same local backups folder (optional toggle),
+  still on-device only.
+
+PRO (subscriber value)
+A. Cloud & resilience (high fit with existing engineering)
+- Online backup to RootRecord secure storage (same backup worker pattern as
+  Business Manager: vault token on device, PUT of SQLite copies). Position as
+  included with Pro, not a separate paid SKU, unless you later offer a small
+  “backup add-on” for legacy users.
+- Optional: longer retention or version count on the server (e.g. last N
+  uploads per device), if storage economics allow.
+
+B. Depth and “power user” surfaces (good Pro differentiators)
+- Extended history / export: bulk export date ranges (CSV, GeoJSON, or PDF
+  summary packs) beyond what free retains locally.
+- Multi-profile or “saved location sets” (e.g. Home / Fleet / Family) with
+  quick switch and combined dashboards — analogous to multi-business on BM.
+- Scheduled or push-style delivery: daily digest email, webhook, or Telegram
+  (only if you want to operate those channels; each has abuse/cost controls).
+
+C. Convenience (medium effort, clear upsell)
+- Priority or higher-frequency refresh for selected feeds (within API ToS),
+  still documented honestly in About.
+- Bundled “severity filters” presets and saved views (Pro syncs presets across
+  devices if you add account-backed settings later).
+
+D. Cross-product (if accounts are shared)
+- Single subscription message: “Pro covers Business Manager reporting + Weather
+  Manager cloud backup and exports” when both apps share the same Stripe
+  product or entitlement flag.
+
+E. Things to avoid paywalling without strong reason
+- Life-safety style information that is already free and clearly licensed for
+  redistribution in your region — keep basic alert visibility in Free unless
+  a regulator or partner contract forces otherwise.
+
+
+4. Entitlement implementation note (engineering)
+----------------------------------------------
+Shipped today (Weather Manager desktop):
+- App access still requires Worker “full” access (same family as Business
+  Manager), same as before.
+- Pro-only features use `proFeaturesUnlocked()` in the app, which is true when
+  the entitlement cache + session indicate `access: full` and `reason: paid`
+  (aligned with Business Manager’s `planEntitlement` / Stripe-backed Worker).
+- Online backup to RootRecord secure storage is enforced in the main process
+  (IPC + timers + post-local-backup upload) and in Settings UI: non‑Pro users
+  keep local/auto backups only; the online section shows an upgrade path.
+
+Future (if you add a true “free tier inside the app” without full access):
+introduce a second stable flag or plan tier from the Worker (e.g.
+access_limited_weather) and branch UI (caps, hidden panels) instead of relying
+only on paid vs trial/free under full access.
+
+
+5. Quick comparison table (for internal decks)
+-----------------------------------------------
+Feature                          Free              Pro
+--------------------------------- ----------------- ---------------------------
+Live hazard feeds (configured)   Yes               Yes
+Local DB + local backups           Yes               Yes
+Cloud backup to RootRecord        No (enforced)     Included
+Auto-upload after local backup    No (enforced)     Yes
+Bulk export / long retention       Limited / local   Yes (define limits)
+Multi location sets / dashboards  Single stack      Multiple / combined
+Higher refresh / priority        Standard          Optional upgrade
+Cross-app (BM + Weather) bundle   N/A               Messaging only
+
+
+6. Next steps (product)
+-----------------------
+- Pick 2–3 Pro pillars for Weather v1 (e.g. cloud backup + exports + multi-set).
+- Align Stripe product and Worker entitlement fields with Business Manager so
+  one “Pro” is easy to explain.
+- Update public copy (site + in-app About) to match whatever you ship.
+
+End of document.
