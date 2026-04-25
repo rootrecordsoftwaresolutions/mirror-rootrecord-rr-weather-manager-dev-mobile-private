@@ -176,7 +176,14 @@ export default function Hazards() {
             <div className="bg-container border border-subtle" data-testid="cyclones-list">
               {cyc.length === 0 && <Empty label="No active cyclone events." />}
               {cyc.map((e) => (
-                <a key={e.id} href={(e.sources||[])[0]} target="_blank" rel="noreferrer" className="block p-3 border-b border-subtle last:border-0 hover:bg-containerHover">
+                <a
+                  key={e.id}
+                  href={`https://www.google.com/search?q=${encodeURIComponent(e.title + ' cyclone')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-testid="cyclone-row"
+                  className="block p-3 border-b border-subtle last:border-0 hover:bg-containerHover"
+                >
                   <div className="text-[10px] uppercase tracking-widest text-sev-moderate font-mono">{(e.categories||[]).join(' · ') || 'Severe storm'}</div>
                   <div className="text-sm">{e.title}</div>
                   <div className="text-[10px] font-mono text-neutral-500 mt-1">{formatTime(e.date)}{e.lat!=null && ` · ${e.lat.toFixed(1)},${e.lon.toFixed(1)}`}</div>
