@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background: #121212;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
+  text-rendering: optimizeLegibility;
+}
+
+/* Hide scrollbars on horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+
+/* Custom selection */
+::selection { background: #3B82F6; color: #fff; }
+
+/* Tab focus ring used by buttons */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #121212, 0 0 0 4px #3B82F6;
+}
+
+/* Leaflet dark tweaks */
+.leaflet-container {
+  background: #0a0a0a;
+}
+.leaflet-control-attribution {
+  background: rgba(0,0,0,0.6) !important;
+  color: #a3a3a3 !important;
+}
+.leaflet-control-attribution a { color: #cbd5e1 !important; }
+
+/* Pull to refresh spinner indicator */
+.ptr-indicator {
+  display: flex;
+  justify-content: center;
+  height: 0;
+  overflow: hidden;
+  transition: height .15s ease;
+  color: #a3a3a3;
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #1e1e1e 0%, #262626 50%, #1e1e1e 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 6px;
+}
+
+/* Tap highlight off */
+* { -webkit-tap-highlight-color: transparent; }
