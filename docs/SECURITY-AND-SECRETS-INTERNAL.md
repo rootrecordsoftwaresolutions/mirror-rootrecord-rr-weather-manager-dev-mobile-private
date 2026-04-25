@@ -8,8 +8,8 @@ Even a **private** repository should not become a second backup of **long-lived 
 | `release/`, `dist/`, `win-unpacked/`, `*.blockmap` | app root / output | **No** | Rebuild from scripts; contains signed PEs. |
 | `build/artifact_signing_metadata.json` | `build/` | **No** (local copy from sample) | **Azure** Trusted Signing metadata; can reference account/region. |
 | `build/azure_tenant_id.txt` | `build/` | **No** | **Optional** tenant hint for `az` login. |
-| `build/installerIcon.ico`, `build/installerSidebar.bmp` | `build/` | **No** | **Generated** by `npm run prepare:assets` from `assets/`. |
-| `assets/notification-sounds/` | `assets/` | **No** | Filled from `assets/notification-sounds-source/`. |
+| `build/installerIcon.ico`, `build/installerSidebar.bmp` | `build/` | **Yes** (in this private repo) | **Regenerated** by `npm run prepare:assets` from `assets/`; can be re-added after regen. |
+| `assets/notification-sounds/` | `assets/` | **No** (gitignored) | Filled from `assets/notification-sounds-source/`; run `npm start` or `npm run prepare:assets`. |
 | `*.log`, `*.err` | anywhere | **No** | Noisy, may include paths. |
 | `.env` (if used) | root | **No** | Use `.env.example` in another product if you standardize. |
 | Partner Center / Store | N/A | **N/A** | **Never** paste PFX, MSIX **secrets**, or partner tokens in issues or code. |
