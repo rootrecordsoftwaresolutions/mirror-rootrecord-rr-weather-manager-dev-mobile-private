@@ -1,0 +1,202 @@
+{
+  "project_name": "Root Record Weather Manager Mobile",
+  "theme_and_archetype": {
+    "theme": "dark",
+    "archetype": "4 (Swiss & High-Contrast - Data Dense Variant)",
+    "description": "A precise, highly functional, and information-dense UI. Moving away from standard VS Code colors toward a cleaner, refined 'Tactical Minimalism' with strong data-visualization emphasis. Dark Sky inspired data bars."
+  },
+  "typography": {
+    "primary_font": "Outfit",
+    "secondary_font": "IBM Plex Mono",
+    "description": "Outfit provides clean, geometric legibility for UI labels and headings. IBM Plex Mono is strictly for all numbers, temperatures, metrics, and timestamps to ensure tabular alignment and a technical feel.",
+    "scale": {
+      "h1": "text-4xl tracking-tight leading-none",
+      "h2": "text-2xl tracking-tight leading-tight",
+      "h3": "text-xl tracking-tight",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm text-neutral-400",
+      "micro": "text-xs tracking-widest uppercase font-mono",
+      "data_large": "text-5xl font-mono tracking-tighter"
+    }
+  },
+  "color_tokens": {
+    "dark": {
+      "background": {
+        "app": "#121212",
+        "container": "#1E1E1E",
+        "container_hover": "#262626",
+        "elevated": "#2D2D2D"
+      },
+      "text": {
+        "primary": "#FFFFFF",
+        "secondary": "#A3A3A3",
+        "muted": "#737373"
+      },
+      "border": {
+        "subtle": "#262626",
+        "focus": "#3B82F6"
+      },
+      "accent": {
+        "primary": "#3B82F6",
+        "primary_hover": "#2563EB",
+        "teal_legacy_replacement": "#FFFFFF"
+      }
+    },
+    "light": {
+      "background": {
+        "app": "#F8FAFC",
+        "container": "#FFFFFF",
+        "container_hover": "#F1F5F9",
+        "elevated": "#E2E8F0"
+      },
+      "text": {
+        "primary": "#0F172A",
+        "secondary": "#64748B",
+        "muted": "#94A3B8"
+      },
+      "border": {
+        "subtle": "#E2E8F0",
+        "focus": "#2563EB"
+      },
+      "accent": {
+        "primary": "#2563EB",
+        "primary_hover": "#1D4ED8",
+        "teal_legacy_replacement": "#0F172A"
+      }
+    },
+    "severity_tiers": {
+      "minor": "#FBBF24",
+      "moderate": "#F97316",
+      "severe": "#EF4444",
+      "extreme": "#991B1B"
+    },
+    "magnitude_tiers": {
+      "m_under_3": "#94A3B8",
+      "m_3_to_5": "#FACC15",
+      "m_5_to_7": "#F97316",
+      "m_7_plus": "#DC2626"
+    },
+    "status": {
+      "guest_banner_bg": "#7F1D1D",
+      "guest_banner_text": "#FECACA"
+    }
+  },
+  "spacing_and_layout": {
+    "base": "p-4",
+    "container_padding": "p-4 md:p-6",
+    "gap": {
+      "tight": "gap-2",
+      "normal": "gap-4",
+      "loose": "gap-8"
+    },
+    "radius": {
+      "card": "rounded-none md:rounded-lg",
+      "chip": "rounded-full",
+      "button": "rounded-sm"
+    },
+    "grid_system": "Cardless, full-width sections on mobile separated by 1px borders (`border-b border-subtle`). On larger screens, use a tight 3-column bento grid (`gap-4`)."
+  },
+  "component_patterns": {
+    "cards": "Flat `bg-[#1E1E1E]`, 1px solid `border-[#262626]`, no shadows. Padding `p-4`.",
+    "list_items": "Flex row, vertically centered, `border-b border-[#262626] last:border-0`, `py-3`.",
+    "severity_chips": "Font size `text-xs`, uppercase, `px-2 py-1`, solid background with 10% opacity of the severity color, and 1px border of the exact severity color. Text color matches severity color.",
+    "magnitude_badges": "Circle or rounded-square, `w-10 h-10 flex items-center justify-center font-mono text-sm font-bold`. Background is the magnitude tier color, text is deep contrast (e.g., `#121212` for lighter tiers, `#FFFFFF` for M7+).",
+    "tab_bar": "Fixed bottom, `h-16`, `bg-[#121212]/90 backdrop-blur-xl border-t border-[#262626]`. Flex evenly distributed. Active state uses `#3B82F6` icon/text, inactive uses `#A3A3A3`.",
+    "sheet_modal": "Slide up from bottom, `bg-[#1E1E1E]`, top corners rounded `rounded-t-xl`, drag handle pill at the top.",
+    "map_picker": "Full-bleed container. Use dark-styled map tiles. Central target reticle.",
+    "weather_timeline": "Horizontal scroll `overflow-x-auto snap-x flex-row gap-4 py-4`. Custom scrollbar hidden. Use stylized vertical bars for precipitation probability.",
+    "guest_banner": "Sticky at top under header. `bg-[#7F1D1D] text-[#FECACA] text-xs py-1 px-4 text-center`. Non-blocking."
+  },
+  "animation_micro_interactions": {
+    "hover": "Subtle brightness increase on cards `hover:bg-[#262626]`.",
+    "click": "Scale down `active:scale-95` on buttons and list items.",
+    "pull_to_refresh": "Standard mobile pull down. Use a spinning lucide-react 'RefreshCw' icon that fades in opacity based on pull distance.",
+    "transitions": "Page transitions use subtle crossfade. Avoid heavy sliding."
+  },
+  "iconography": "lucide-react. Stroke width 1.5 for a delicate, precise technical look.",
+  "screen_blueprints": {
+    "auth_sign_in": {
+      "layout": "Center aligned, max-w-sm mx-auto p-6.",
+      "elements": [
+        "Logo / App Name (Large)",
+        "Email / Password Inputs (Shadcn customized)",
+        "Primary Sign In Button (`bg-[#3B82F6]`)",
+        "Divider 'or'",
+        "Continue as Guest Button (Outline, muted text)"
+      ]
+    },
+    "home_dashboard": {
+      "layout": "Vertical stack with guest banner at top.",
+      "elements": [
+        "Header: Location Switcher Dropdown (Left), Settings Icon (Right)",
+        "Hero: Current Temp (Large Mono), Condition Icon, High/Low",
+        "Grid: 4 Bento blocks (Wind, Humidity, Pressure, UV) with mono values",
+        "24h Averages Card",
+        "Daily Forecast preview list (Next 3 days)"
+      ]
+    },
+    "weather": {
+      "layout": "Vertical scroll, highly dense.",
+      "elements": [
+        "Current Conditions Card (compact)",
+        "Hourly Forecast: Horizontal scroll timeline with temp graphs and precipitation bars",
+        "Daily Forecast Strip: 7-day vertical list with min/max pill graphs",
+        "Active Alerts: List of NOAA/Canada alerts utilizing severity chips"
+      ]
+    },
+    "earthquakes_tsunamis": {
+      "layout": "Tabbed view (Earthquakes | Tsunamis).",
+      "elements": [
+        "Header image: Subtle satellite earth view",
+        "List: USGS earthquake events. Each row: Magnitude Badge (Left), Location (Main), Depth & Time Ago (Subtext Mono).",
+        "Tsunami Bulletins list with severe warning styling."
+      ]
+    },
+    "cyclones": {
+      "layout": "Vertical List.",
+      "elements": [
+        "Header image: Satellite hurricane cloud view",
+        "List: NASA EONET cyclone events. Event name, active status, date. Expandable for details."
+      ]
+    },
+    "wildfires": {
+      "layout": "Vertical List.",
+      "elements": [
+        "List: NASA EONET wildfire events. Similar to cyclones but using fire icons and heat-related severity colors."
+      ]
+    },
+    "settings": {
+      "layout": "Grouped list style (iOS Settings vibe).",
+      "elements": [
+        "Account Section: User info / Sign out",
+        "Locations: List of saved locations with 'Add Location' button",
+        "Preferences: Toggle units (Imperial/Metric), Pull Radius slider",
+        "Pro Features: Critical Alert preferences (locked for guests)"
+      ]
+    },
+    "location_add_map": {
+      "layout": "Full screen.",
+      "elements": [
+        "Search bar (absolute top, glassmorphic)",
+        "Full screen interactive map (dark tiles)",
+        "Center reticle",
+        "Bottom Sheet: Coordinates (Mono), Location Name input, 'Save Location' Button"
+      ]
+    }
+  },
+  "testing_attributes": {
+    "instruction": "All interactive and key informational elements MUST include a data-testid attribute formatted as kebab-case and role-based.",
+    "examples": [
+      "data-testid='guest-login-button'",
+      "data-testid='weather-hourly-timeline'",
+      "data-testid='earthquake-list-item-magnitude'"
+    ]
+  },
+  "media": {
+    "images": {
+      "earthquakes_header": "https://images.unsplash.com/photo-1648390148758-5c1a1277b941?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHwzfHxzYXRlbGxpdGUlMjBlYXJ0aCUyMGRhcmslMjBjbG91ZHxlbnwwfHx8fDE3NzcwNzg5OTJ8MA&ixlib=rb-4.1.0&q=85",
+      "cyclones_header": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHwyfHxzYXRlbGxpdGUlMjBlYXJ0aCUyMGRhcmslMjBjbG91ZHxlbnwwfHx8fDE3NzcwNzg5OTJ8MA&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "instructions_to_main_agent": "Implement this design using standard Tailwind CSS classes. Strictly avoid custom CSS where Tailwind suffices. Ensure 'Outfit' and 'IBM Plex Mono' fonts are properly imported (e.g., via Google Fonts) and applied via Tailwind config. Implement the bottom tab navigation to persist across main views. Apply the dark theme globally by default. DO NOT USE ANY placeholder images, use the provided unsplash urls. Include data-testid attributes on every interactive element."
+}
