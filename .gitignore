@@ -12,9 +12,6 @@ assets/notification-sounds/
 # Public GitHub org mirror (download page) — not the app
 rr-weather-dl-only-public/
 
-# Internal handoff / release runbooks (app runs without these)
-docs/
-
 # Optional Inno/ISCC SignTool hook only (NSIS uses sign_release_azure)
 build/sign_inno_azure.ps1
 
