@@ -42,3 +42,12 @@ build/output/
 
 # Nested public copy must not re-embed a second .git
 rr-weather-dl-only-public/.git/
+-e 
+# Environment and credential files
+.env
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+.credentials
